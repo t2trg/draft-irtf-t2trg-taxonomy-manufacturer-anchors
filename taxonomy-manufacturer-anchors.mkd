@@ -33,8 +33,6 @@ informative:
   RFC9733: async-enroll
   I-D.ietf-anima-brski-cloud: cloud
   I-D.ietf-iotops-7228bis-01: 7228bis
-# needed?:
-  I-D.ietf-anima-voucher-delegation: voucher-delegation
   I-D.ietf-anima-constrained-voucher: constrained-voucher
   I-D.richardson-anima-masa-considerations: masa-considerations
   I-D.moskowitz-ecdsa-pki:
@@ -48,17 +46,17 @@ informative:
   3GPP.51.011:
   RFC6024:
 
-  pelionfcu:
-    title: "Factory provisioning overview"
-    target: https://www.pelion.com/docs/device-management-provision/1.2/introduction/index.html
-    author:
-      org: "ARM Pelion"
-    date: 2020-06-28
-
   factoringrsa:
     title: "Factoring RSA keys from certified smart cards: Coppersmith in the wild"
-    target: https://eprint.iacr.org/2013/599
-    author: Daniel J.  Bernstein, et al
+    target: "https://eprint.iacr.org/2013/599"
+    author:
+      name: "Daniel J. Bernstein"
+      name: "Yun-An Chang"
+      name: "Chen-Mou Cheng"
+      name: "Li-Ping Chou"
+      name: "Nadia Heninger"
+      name: "Tanja Lange"
+      name: "Nicko van Someren"
     date: 2013-09-16
 
   kskceremony:
@@ -88,13 +86,6 @@ informative:
       name: "Adi Shamir"
     date: 1979
     target: "http://web.mit.edu/6.857/OldStuff/Fall03/ref/Shamir-HowToShareASecret.pdf"
-
-  nistsp800-57:
-    title: "SP 800-57 Part 1 Rev. 4 Recommendation for Key Management, Part 1: General"
-    target: "https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-4/final"
-    author:
-      org: "NIST"
-    date: 2016-01-01
 
   fidotechnote:
     target: "https://fidoalliance.org/fido-technotes-the-truth-about-attestation/"
@@ -134,23 +125,6 @@ informative:
     target: "https://en.wikipedia.org/wiki/JTAG"
     date: 2020-08-26
 
-# FIXME: Not used -- delete or reference?
-  JTAGieee: # DOI.10.1109/IEEESTD.2010.5412866
-    target: "https://ieeexplore.ieee.org/document/5412866"
-    title: "1149.7-2009 - IEEE Standard for Reduced-Pin and Enhanced-Functionality Test Access Port and Boundary-Scan Architecture"
-    author:
-      org: "IEEE Standard"
-    date: 2009
-    seriesinfo:
-      DOI: 10.1109/IEEESTD.2010.5412866
-
-  rootkeyrollover:
-    target: "https://www.icann.org/en/system/files/files/proposal-future-rz-ksk-rollovers-01nov19-en.pdf"
-    title: "Proposal for Future Root Zone KSK Rollovers"
-    author:
-      org: "ICANN"
-    date: 2019
-
   BedOfNails:
     target: "https://en.wikipedia.org/wiki/Bed_of_nails_tester"
     title: "Bed of nails tester"
@@ -182,7 +156,8 @@ informative:
   curl:
     target: "https://curl.se/download.html"
     title: "CURL"
-    author: "Daniel Stenberg"
+    author:
+      name: "Daniel Stenberg"
     date: 2025-05-28
 
 venue:
@@ -403,7 +378,7 @@ Third, it may be stored in the application code itself, where the application va
 The initial (factory) load of the application code initializes the trust arrangement.
 
 In this situation the application code is not started in a secured boot path.
-The second-stage bootloader does not validate the application/operating system before starting it, but it may still provide measured boot mechanism. {{?I-D.ietf-rats-endorsements, Figure 1}}
+The second-stage bootloader does not validate the application/operating system before starting it, but it may still provide measured boot mechanism. {{?I-D.ietf-rats-endorsements, Section 2.1}}
 
 
 ## Trusted Application Manager anchor
@@ -450,7 +425,7 @@ Such vendor services can be provided with public certificates, but the very shor
 Instead, a private PKI anchor is included.
 This can be in the form a multi-level PKI (as described in {{pkilevel}}), or degenerate to a level-1 PKI: a self-signed certificate.
 
-A level-1 PKI is very simple to create and operate, and there are innumerable situations where there is just a call to the "curl" utility {{?curl}}, with a "--pinnedpubkey" option to specify the anchor.
+A level-1 PKI is very simple to create and operate, and there are innumerable situations where there is just a call to the "curl" utility {{curl}}, with a "--pinnedpubkey" option to specify the anchor.
 
 ## Onboarding and other Enrollment anchors
 
