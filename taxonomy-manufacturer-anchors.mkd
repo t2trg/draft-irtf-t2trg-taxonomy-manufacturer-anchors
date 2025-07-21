@@ -46,6 +46,12 @@ informative:
   3GPP.51.011:
   RFC6024:
 
+  CABForum90day:
+    title: "CA/Browser Forum Latest Baseline Requirements, version 2.1.5"
+    target: "   https://cabforum.org/working-groups/server/baseline-requirements/requirements/"
+    author:
+      org: "CA/Browser Forum"
+
   factoringrsa:
     title: "Factoring RSA keys from certified smart cards: Coppersmith in the wild"
     target: "https://eprint.iacr.org/2013/599"
@@ -357,7 +363,7 @@ There are some characteristic associated with each trust anchor that depend upon
 
 2. There is a risk that multiple trust anchors could be added to the device.  This would not replace the manufacturer's anchor, but augment it with additional trust anchors not authorized by the manufacturer.
 
-3. There is a risk that a trust anchor could be removed from the device, or rendered unuseable. For instance, it might be impractical to replace a trust anchor, but it might be possible via fault injection or high-energy radiation for an attacker to corrupt one or two bites of a trust anchor, rendering the anchor useless.
+3. There is a risk that a trust anchor could be removed from the device, or rendered unuseable. For instance, it might be impractical to replace a trust anchor, but it might be possible via fault injection or high-energy radiation for an attacker to corrupt one or two bytes of a trust anchor, rendering the anchor useless.
 
 4. There is a risk associated with compromise of the associate private key that goes with the (public key) of the trust anchor.  While this is the most obvious concern expressed: that an attacker gets control of the key, the above three risks may be more practical for some attackers.
 
@@ -366,9 +372,9 @@ There are some characteristic associated with each trust anchor that depend upon
 Should any of the above things occur, the manufacturer will be in a position where they might have to deploy new trust anchors to every device.
 For some trust anchors, they may be safely replaced with an over-the-air update.
 For the trust anchor that authorizes over-the-air updates, the manufacturer might be in a position where every single device has to be recalled and serviced with specialized hardware capable of updating the firmware.
-For some devices, the hardware will have to be entirely replaced, at great cost.
+For some devices, the hardware will have to be entirely replaced, typically at great cost.
 
-This has already happened to Intel: {{leakedmsikey}}
+This has already happened, see for example: {{leakedmsikey}}
 
 ## First-Stage Bootloader Trust Anchor
 
@@ -406,7 +412,7 @@ The second-stage bootloader does not validate the application/operating system b
 This anchor is the key used by the {{RFC9397}} Trusted Application Manager (TAM).
 Code which is signed by this anchor will be given execution privileges as described by the manifest which accompanies the code.
 
-The TAM software itself will typically be verified by the first -stage
+The TAM software itself will typically be verified by the first-stage
 
 This privilege may include updating anchors that are present within the TAM, or elsewhere in the Trusted Execution Environment.
 
@@ -414,7 +420,7 @@ This privilege may include updating anchors that are present within the TAM, or 
 
 These anchors are used to authenticate HTTPS certificates from web sites.
 These anchors are typically distributed as part of desktop browsers, and via desktop operating systems.
-On IoT devices with specific purposes {{?RFC8520}}, a limited number of conections is expected, so a limited number of trust anchors is usually distributed.
+On IoT devices with specific purposes {{?RFC8520}}, a limited number of connections is expected, so a limited number of trust anchors is usually distributed.
 
 The exact set of these anchors is not precisely defined: it is usually determined by the browser vendor (e.g., Mozilla, Google, Apple, Safari, Microsoft), or the operating system vendor (e.g., Apple, Google, Microsoft, Ubuntu).
 In most cases these vendors look to the CA/Browser Forum {{CABFORUM}} for inclusion criteria.
@@ -441,7 +447,7 @@ It is common for many IoT and network appliances to have links to vendor provide
 For instance, the IoT device that calls home for control purposes, or the network appliance that needs to validate a license key before it can operate.
 (This may be identical to, or distinct from a Software Update anchor.  In particular, the device might call home over HTTPS to learn if there is a software update that needs to be done, but the update is signed by another key.)
 
-Such vendor services can be provided with public certificates, but the very short lifetime for public certificates precludes their use in many operational environments.
+Such vendor services can be provided with public certificates, but the very short lifetime for public certificates {{CABForum90day}} precludes their use in many operational environments.
 Instead, a private PKI anchor is included.
 This can be in the form a multi-level PKI (as described in {{pkilevel}}), or degenerate to a level-1 PKI: a self-signed certificate.
 
