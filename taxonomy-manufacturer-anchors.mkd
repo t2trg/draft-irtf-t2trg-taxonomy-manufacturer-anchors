@@ -50,13 +50,13 @@ informative:
     title: "Factoring RSA keys from certified smart cards: Coppersmith in the wild"
     target: "https://eprint.iacr.org/2013/599"
     author:
-      name: "Daniel J. Bernstein"
-      name: "Yun-An Chang"
-      name: "Chen-Mou Cheng"
-      name: "Li-Ping Chou"
-      name: "Nadia Heninger"
-      name: "Tanja Lange"
-      name: "Nicko van Someren"
+      - name: "Daniel J. Bernstein"
+      - name: Yun-An Chang
+      - name: Chen-Mou Cheng
+      - name: Li-Ping Chou
+      - name: Nadia Heninger
+      - name: Tanja Lange
+      - name: Nicko van Someren
     date: 2013-09-16
 
   kskceremony:
@@ -159,6 +159,13 @@ informative:
     author:
       name: "Daniel Stenberg"
     date: 2025-05-28
+
+  measuredboot:
+    title: "TCG PC Client Specific Platform Firmware Profile Specification"
+    target: "https://trustedcomputinggroup.org/resource/pc-client-specific-platform-firmware-profile-specification/"
+    author:
+      org: "Trusted Computing Group"
+    date: 2023-12-04
 
 venue:
   group: t2trg
@@ -378,7 +385,7 @@ Third, it may be stored in the application code itself, where the application va
 The initial (factory) load of the application code initializes the trust arrangement.
 
 In this situation the application code is not started in a secured boot path.
-The second-stage bootloader does not validate the application/operating system before starting it, but it may still provide measured boot mechanism. {{?I-D.ietf-rats-endorsements, Section 2.1}}
+The second-stage bootloader does not validate the application/operating system before starting it, but it may still provide measured boot mechanism (see {{measuredboot}}, section 2.3.)
 
 
 ## Trusted Application Manager anchor
