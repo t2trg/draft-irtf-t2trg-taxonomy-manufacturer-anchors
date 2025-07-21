@@ -667,6 +667,8 @@ This password is probably stored in the clear in the device-OEM's firmware: it c
 
 # Public Key Infrastructures (PKI)
 
+This section covers the attributes of the Public Key Infrastructure that a manufacturer must operate in order to provision IDevID certificates to devices.
+
 {{RFC5280}} describes the format for PKIX certificates.
 Numerous mechanisms for doing enrollment have been defined (including: EST {{RFC7030}}, CMP {{RFC4210}}, SCEP {{-SCEP}}).
 
@@ -864,7 +866,7 @@ just a single device.
 This section recaps the set of questions that may need to be answered.
 This document does not assign valuation to the answers.
 
-## Integrity and Privacy of on-device data
+## Integrity and Confidentiality of on-device data
 
 initial-enclave-location:
 : Is the location of the initial software trust anchor internal to the CPU package?
@@ -873,7 +875,7 @@ Some systems have a software verification public key which is built into the CPU
 initial-enclave-integrity-key:
 : If the first-stage bootloader is external to the CPU, and if it is integrity protected, where is the key used to check the integrity?
 
-initial-enclave-privacy-key:
+initial-enclave-confidentiality-key:
 : If the first-stage data is external to the CPU, is it kept confidential by use of encryption?
 
 first-stage-exposure:
@@ -914,7 +916,7 @@ This is the number of spare shares.
 Publishing this provides a measure of how much redundancy is present while not actually revealing either k or n.
 
 identity-shared-split-continents:
-: the number of continents on which the private key can be recovered without travel by any of the secret shareholders.
+: the number of continents on which the private key can be recovered without trans-continental travel by any of the secret shareholders.
 
 
 ## Integrity and Privacy of included trust anchors
@@ -933,7 +935,7 @@ pki-lifespan:
 : what is the timespan for this anchor.  Does it get replaced at some interval, and if so, by what means is this done?
 
 pki-level-locked:
-: (a Boolean) is the level where the EE cert will be found locked by the device, or can
+: (a Boolean) the level where the EE cert will be found locked by the device, or can
 levels be added or deleted by the PKI operator without code changes to the
 device.
 
