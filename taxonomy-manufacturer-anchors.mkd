@@ -238,7 +238,8 @@ For instance, trust anchors are used to verify:
 Device identity keys are used when performing enrollment requests (in {{-BRSKI}}, and in some uses of {{-noob}}.
 The device identity certificate is also used to sign Evidence by an Attesting Environment (see {{-rats-architecture}}).
 
-These security artifacts are used to anchor other chains of information such as: an EAT Claim as to the version of software/firmware running on a device {{?I-D.birkholz-suit-coswid-manifest}}, an EAT claim about legitimate network activity (via {{?I-D.birkholz-rats-mud}}, or embedded in the IDevID in {{?RFC8520}}).
+These security artifacts are used to anchor other chains of information such as: an
+The Entity Attestation Token (EAT) {{?RFC9711}} Claim as to the version of software/firmware running on a device {{?I-D.birkholz-suit-coswid-manifest}}, an EAT claim about legitimate network activity (via {{?I-D.birkholz-rats-mud}}, or embedded in the IDevID in {{?RFC8520}}).
 
 Known software versions lead directly to vendor/distributor signed Software Bill of Materials (SBOM), such as those described by {{-coswid}} and the NTIA/SBOM work {{ntiasbom}} and CISQ/OMG SBOM work underway {{cisqsbom}}.
 
@@ -303,7 +304,7 @@ As the BMC usually has complete access to the main CPU's memory, I/O hardware an
 ## A reference manufacturing/boot process
 
 In order to provide for immutability and privacy of the critical TrAnc and IDs, many CPU manufacturers will provide for some kind of private memory area which is only accessible when the CPU is in certain privileged states.
-See the Terminology section of {{RFC9397}}, notably TEE, REE, and TAM, and also section 4, Architecture.
+See the Terminology and Architecture sections of {{RFC9397}}, notably Trusted Execution Environment (TEE), Rich Execution Environment (REE), and Trusted Application Manager (TAM).
 
 The private memory that is important is usually non-volatile and rather small.
 It may be located inside the CPU silicon die, or it may be located externally.
