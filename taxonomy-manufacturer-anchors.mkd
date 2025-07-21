@@ -167,6 +167,13 @@ informative:
       org: "Trusted Computing Group"
     date: 2023-12-04
 
+  TPM20spec:
+    title: "TPM 2.0 Library"
+    target: "https://trustedcomputinggroup.org/resource/tpm-library-specification/"
+    author:
+      org: "Trusted Computing Group"
+    date: 2025-03-01"
+
 venue:
   group: t2trg
   mail: t2trg@irtf.org
@@ -193,7 +200,7 @@ An increasing number of protocols derive a significant part of their security by
 Disclosure of the list of trust anchors does not usually cause a problem, but changing them in any way does.
 This includes adding, replacing or deleting anchors.
 
-The document {{RFC6024}} deals with how trust anchor stores are managed in the device which uses them.
+The document {{RFC6024}} deals with how trust anchors are managed in the device which uses them.
 This document deals with how the PKI associated with such a trust anchor is managed.
 
 Many protocols also leverage manufacturer installed identities.
@@ -201,12 +208,17 @@ These identities are usually in the form of {{ieee802-1AR}} Initial Device Ident
 The identity has two components: a private key that must remain under the strict control of a trusted part of the device, and a public part (the certificate), which (ignoring, for the moment, personal privacy concerns) may be freely disclosed.
 
 There also situations where identities are tied up in the provision of symmetric shared secrets.
-A common example is the SIM card {{3GPP.51.011}}: it now comes as a virtual SIM, which could in theory be factory provisioned.
-The provision of an initial, per-device default password also falls into the category of symmetric shared secret.
+A common example is the SIM card {{3GPP.51.011}}.
+Provisioning of a physical SIM card is generally considered a one-touch operation.
+The use of a virtual SIM (an eSIM), could in theory be factory provisioned.
+In general, the provision of an initial, per-device default password also falls into the category of symmetric shared secret.
 
 It is further not unusual for many devices (particularly smartphones) to also have one or more group identity keys.
 This is used, for instance, in {{fidotechnote}} to make claims about being a particular model of phone.
-The key pair that does this is loaded into large batches of phones for privacy reasons.
+The key pair that does this is loaded into large batches of phones for privacy reasons:
+If a single key was used, then this would allow tracking.
+This key pair can not be used to identify a specific device.
+
 
 The trust anchors are used for a variety of purposes.
 For instance, trust anchors are used to verify:
@@ -272,11 +284,12 @@ The two secondary ones refer to methods where a secure element is involved, and 
 
 # Applicability Model
 
-There is a wide variety of devices to which this analysis can apply.
-(See {{-7228bis}}.)
+There is a wide variety of devices to which this analysis can apply (see {{-7228bis}}.)
 This document will use a J-group processor as a sample.
 This class is sufficiently large to experience complex issues among multiple CPUs, packages and operating systems, but at the same time, small enough that this class is often deployed in single-purpose IoT-like uses.
-Devices in this class often have Secure Enclaves, and can include silicon manufacturer controlled processors in the boot process (the Raspberry PI boots under control of the GPU).
+Devices in this class often have Secure Enclaves, and can include silicon manufacturer controlled processors in the boot process.
+Note that access to the secure enclave is often not available to system integrators.
+A very common IoT platform, the Raspberry PI, has a secure enclave with the GPU, but access to it is not available.
 
 Almost all larger systems (servers, laptops, desktops) include a Baseboard Management Controller (BMC), which ranges from a M-Group Class 3 MCU, to a J-Group Class 10 CPU (see, for instance {{openbmc}} which uses a Linux kernel and system inside the BMC).
 As the BMC usually has complete access to the main CPU's memory, I/O hardware and disk, the boot path security of such a system needs to be understood first as being about the security of the BMC.
@@ -291,7 +304,7 @@ It may be located inside the CPU silicon die, or it may be located externally.
 If the memory is external, then it is usually encrypted by a hardware mechanism on the CPU, with only the key kept inside the CPU.
 
 The entire mechanism may be external to the CPU in the form of a hardware-TPM module, or it may be entirely internal to the CPU in the form of a firmware-TPM.
-It may use a custom interface to the rest of the system, or it may implement the TPM 1.2 or TPM 2.0 specifications.
+It may use a custom interface to the rest of the system, or it may implement the TPM 1.2 or TPM 2.0 specifications (see {{TPM20spec}}.)
 Those details are important to performing a full evaluation, but do not matter much to this model (see initial-enclave-location below).
 
 During the manufacturing process, once the components have been soldered to the board, the system is usually put through a system-level test.
