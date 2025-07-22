@@ -216,7 +216,7 @@ The identity has two components: a private key that must remain under the strict
 There also situations where identities are tied up in the provision of symmetric shared secrets.
 A common example is the SIM card {{3GPP.51.011}}.
 Provisioning of a physical SIM card is generally considered a one-touch operation.
-The use of a virtual SIM (an eSIM), could in theory be factory provisioned.
+A virtual SIM (an eSIM) could be factory provisioned.
 In general, the provision of an initial, per-device default password also falls into the category of symmetric shared secret.
 
 It is further not unusual for many devices (particularly smartphones) to also have one or more group identity keys.
@@ -525,11 +525,15 @@ The document {{I-D.moskowitz-ecdsa-pki}} provides some practical instructions
 on setting up a reference implementation for ECDSA keys using a three-tier
 mechanism.
 
-The names of the five methods below are intended to be pneumonic.
-Avocados have big seeds inside of them.
-Broccoli has a seed on the top (which is eaten).
-Carrots have a complicated seed process involving multiple years and many leaves.
-The two methods involving Secure Elements are named with the letter S.
+The names of the five methods below are intended to be mnemonic.
+
+* Avocados have big seeds inside of them.
+
+* Broccoli has a seed on the top (which is eaten).
+
+* Carrots have a complicated seed process involving multiple years and many leaves.
+
+* The two methods involving Secure Elements are named with the letter S.
 
 ### Avocado method: On-device private key generation {#avcado}
 
