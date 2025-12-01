@@ -180,6 +180,12 @@ informative:
       org: "Trusted Computing Group"
     date: 2025-03-01"
 
+  ISO27001:
+    title: "ISO/IEC 27001:2022 Information security, cybersecurity and privacy protection -- Information security management systems -- Requirements"
+    author:
+      org: International Organization for Standardization
+    date: 2022
+
 venue:
   group: t2trg
   mail: t2trg@irtf.org
@@ -217,13 +223,12 @@ There also situations where identities are tied up in the provision of symmetric
 A common example is the SIM card {{3GPP.51.011}}.
 Provisioning of a physical SIM card is generally considered a one-touch operation.
 A virtual SIM (an eSIM) could be factory provisioned.
-In general, the provision of an initial, per-device default password also falls into the category of symmetric shared secret.
 
 It is further not unusual for many devices (particularly smartphones) to also have one or more group identity keys.
 This is used, for instance, in {{fidotechnote}} to make claims about being a particular model of phone.
 The key pair that does this is loaded into large batches of phones for privacy reasons:
 If a single key was used, then this would allow tracking.
-This key pair can not be used to identify a specific device.
+The shared key pair can not be used to identify a specific device.
 
 
 The trust anchors are used for a variety of purposes.
@@ -235,11 +240,11 @@ For instance, trust anchors are used to verify:
 
 * the {{RFC8366}} format voucher that provides proof of an ownership change.
 
-Device identity keys are used when performing enrollment requests (in {{-BRSKI}}, and in some uses of {{-noob}}.
+Device identity keys are used when performing enrollment requests (in {{-BRSKI}}, and in some uses of {{-noob}}.)
 The device identity certificate is also used to sign Evidence by an Attesting Environment (see {{-rats-architecture}}).
 
 These security artifacts are used to anchor other chains of information such as: an
-The Entity Attestation Token (EAT) {{?RFC9711}} Claim as to the version of software/firmware running on a device {{?I-D.birkholz-suit-coswid-manifest}}, an EAT claim about legitimate network activity (via {{?I-D.birkholz-rats-mud}}, or embedded in the IDevID in {{?RFC8520}}).
+Entity Attestation Token (EAT) {{?RFC9711}} Claim as to the version of software/firmware running on a device {{?I-D.birkholz-suit-coswid-manifest}}, an EAT claim about legitimate network activity (via {{?I-D.birkholz-rats-mud}}, or embedded in the IDevID in {{?RFC8520}}).
 
 Known software versions lead directly to vendor/distributor signed Software Bill of Materials (SBOM), such as those described by {{-coswid}} and the NTIA/SBOM work {{ntiasbom}} and CISQ/OMG SBOM work underway {{cisqsbom}}.
 
@@ -254,7 +259,7 @@ The privacy and integrity of the TrAncs and IDs is often provided by a different
 This relationship is examined.
 
 While many might desire to assign numerical values to different mitigation techniques in order to be able to rank them, this document does not attempt to do that, as there are too many other (mostly human) factors that would come into play.
-Such an effort is more properly in the purview of a formal ISO9001 process such as ISO14001.
+Such an effort is more properly in the purview of a formal processes such as {{ISO27001}}.
 
 ## Terminology
 
