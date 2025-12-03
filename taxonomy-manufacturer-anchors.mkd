@@ -446,7 +446,8 @@ The second-stage bootloader does not validate the application/operating system b
 This anchor is the key used by the {{RFC9397}} Trusted Application Manager (TAM).
 Code which is signed by this anchor will be given execution privileges as described by the manifest which accompanies the code.
 
-The TAM software itself will typically be verified by the first-stage bootloader, so it needs to be signed by
+The TAM software *itself* will typically be verified by the first-stage bootloader, so it needs to be signed by the First Bootloader Trust Anchor.
+The TAM could also be a component of the first or second stage bootloader.
 
 This privilege may include updating anchors that are present within the TAM, or elsewhere in the Trusted Execution Environment.
 
