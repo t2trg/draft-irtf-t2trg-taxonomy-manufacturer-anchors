@@ -152,13 +152,6 @@ informative:
     title: "CA/Browser Forum Baseline Requirements for the Issuance and Management of Publicly-Trusted Certificates, v.1.7.3"
     date: October 2020
 
-  TPM:
-    title: "TPM 2.0 Library"
-    target: "https://trustedcomputinggroup.org/resource/tpm-library-specification/"
-    author:
-      org: "Trusted Computing Group"
-    date: 2025-03-01
-
   TPMEK:
     title: "TCG Credential Profile EK 2.0"
     target: "https://trustedcomputinggroup.org/wp-content/uploads/TCG-EK-Credential-Profile-for-TPM-Family-2.0-Level-0-Version-2.6_pub.pdf"
@@ -317,7 +310,7 @@ device/infrastructure-co-generated:
 : when a private or symmetric key is derived from a secret previously synchronized between the silicon vendor and the factory using a common algorithm.
 
 TPM:
-: a Trusted Platform Module, such as the set of devices standardized by the Trusted Computing Group (TCG). See {{TPM}}.
+: a Trusted Platform Module, such as the set of devices standardized by the Trusted Computing Group (TCG). See {{TPM20spec}}.
 
 In addition, {{keygen}} introduces three primary private key generation techniques named *arbitrarily* after three vegetables (avocado, brocolli, and carrot) and two secondary ones named after two fruits (salak and sapodilla).
 The two secondary ones refer to methods where a secure element is involved, and mnemonically start with the same letter: S.
