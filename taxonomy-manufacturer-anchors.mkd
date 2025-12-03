@@ -159,6 +159,13 @@ informative:
       org: "Trusted Computing Group"
     date: 2025-03-01
 
+  TPMEK:
+    title: "TCG Credential Profile EK 2.0"
+    target: "https://trustedcomputinggroup.org/wp-content/uploads/TCG-EK-Credential-Profile-for-TPM-Family-2.0-Level-0-Version-2.6_pub.pdf"
+    author:
+      org: "Trusted Computing Group"
+    date: 2024-12-04
+
   PUF:
     target: "https://en.wikipedia.org/wiki/Physical_unclonable_function"
     title: "Physically Uncloneable Function"
@@ -649,58 +656,67 @@ This is typically at least 256-bits in size, but often is larger.
 This can be via fuses blown in a CPU's Trusted Execution Environment {{?RFC9397}}, a TPM, or a Secure Element that is provisioned at its fabrication time.
 In some cases, the secret is based upon a Physically Uncloneable Function {{PUF}}.
 
-This value is revealed to the OEM board manufacturer only via a secure channel.
+This value is revealed to the board/system manufacturer only via a secure channel.
 Upon first boot, the system (within a TEE, a TPM, or Secure Element) will generate a key pair using this seed to initialize a Pseudo-Random-Number-Generator (PRNG).
-The OEM, in a separate system, will initialize the same PRNG and, thus generate the same key pair.
-The OEM then derives the public key part, and signs it with their certification authority (CA), which inserts this public key into a certificate.
-The private part then is destroyed by the OEM, ideally never stored or seen by anyone.
+The manufacturer, in a separate system, will initialize the same PRNG and, thus generate the same key pair.
+The manufacturer then derives the public key part, and signs it with their certification authority (CA), which inserts this public key into a certificate.
+The private part then is destroyed by the manufacturer, ideally never stored or seen by anyone.
+This same mechanism is used by the TCG for manufacturer provisioning of EK certificates in TPMs, as explained by Section 2.1.1 of {{TPMEK}}.
 
 The certificate (being public information) is placed into a database, in some cases it is loaded by the device as its IDevID certificate, in other cases, it is retrieved during the onboarding process based upon a unique serial number asserted by the device.
 
-In some ways, this method appears to have all the tradeoffs of the previous two methods: the device must correctly derive its own private key, and the OEM has access to the private key, making it also vulnerable.
-The device does not depend upon any internal source of random numbers to derive its key.
+In some ways, this method appears to have all the tradeoffs of the previous two methods: the device must correctly derive its own private key, and the manufacturer has access to the private key, making it also vulnerable.
+But, the device does not depend upon any internal source of random numbers to derive its key.
 
-The OEM does all the private key manipulation in a secure place, probably offline, and need never involve the actual physical factory.
-The OEM can do this in a different country, even.
+The manufacturer does all the private key manipulation in a secure place, probably offline, and need never involve the actual physical factory.
+The manufacturer can even do this in a different country.
 
-The security of the process rests upon the difficulty in extracting the seed provided by the Silicon-OEM.
-While the Silicon-OEM must operate a factory that is more secure, which has a much higher cost, the exposure for this facility can be much better controlled.  The device-OEM's factory, which has many more components as input, including device testing, can operate at a much lower risk level.
+The security of the process rests upon the difficulty in extracting the seed provided by the silicon chip supplier.
+While the silicon chip supplier must operate their factory in a much more secure fashion, which has a much higher cost, the exposure for this facility can be much better controlled.
+The device manufacturing factory, which has many more components as input, including device testing, can operate at a much lower risk level as a result.
 
-Additionally, there are some other advantages to the OEM: The private keys and certificates may be calculated by the OEM asynchronously to the manufacturing process, either done in batches in advance of actual manufacturing, or on demand when an IDevID is requested.
+Additionally, there are some other advantages to the device manufacturer: The private keys and certificates may be calculated by the manufacturer asynchronously to the manufacturing process, either done in batches in advance of actual manufacturing, or on demand when an IDevID is requested.
 
-There are additional downsides of this method for OEM: the cost is often higher, and may involve additional discrete parts.
-The security has been outsourced to the OEM-silicon fabrication system.
-The resulting seeds must be communicated to the OEM in batches.
+There are, however, additional downsides of this method for manufacturer: the cost of the silicon is often higher, and may involve additional discrete parts.
+The higher cost is the result of outsourcing the security risk to the silicon manufacturer supplier.
+
+The weakest link in this process is that the resulting seeds must be communicated to the device manufacturer securely, usually in batches.
 This will often by done by physical courier, but other arrangements are possible.
-The device-OEM must store and care for these keys very carefully.
+The device manufacturer must store and care for these seeds very carefully, but as soon as a certificate has been generated, the seeds can be destroyed.
 
 ### Squash method: on-device generation with Secure Element {#squash}
 
 In this method, a key-pair is generated by the device using a secure element.
-(It may be a discrete TPM, but the firmware TPM method is considered avocado.)
+(It may be a discrete TPM, but when TPM is used to generate keys, that method is considered to fall into the `avocado` category)
 
 The secure element provides additional assurance that the private key was properly generated.
 Secure elements are designed specifically so that private keys can not be extracted from the device, so even if the device is attacked in a sophisticated way, using hardware, the private key will not be disclosed.
 
 ### Spinach method: Secure Element factory generation {#spinach}
 
-In this method, a key-pair is generated by the Silicon-OEM in their factory.
-This method is essentially identical to the squash method, but it occurs in a different factory.
+In this method, a key-pair is generated by a Secure Element silicon chip supplier in their factory.
+This method is essentially identical to the squash method, but it occurs in a different factory!
 
 As a result the choice of which certification authority (CA) gets used may be very different.
-It is typical for the Silicon-OEM to operate a CA themselves.
-There are a few options: a) they may put IDevIDs into the device which are generic to the silicon-OEM provider, b) they may operate a CA on behalf of the device-OEM, c) they may even connect over a network to the device-OEM's CA.
+It is typical for the silicon chip supplier to operate a CA themselves.
+There are a few options:
 
-The device-OEM receives the secure element devices in batches in a similar way that they receive other parts.
-The secure elements are placed by the device-OEM's manufacturing plant into the devices.
+1. they may put IDevIDs into the device which are generic to the silicon chip suppliere
+2. they may operate a CA on behalf of the device manufacturer,
+3. they may even connect over a network to the device manufacturer's CA.
 
-Upon first boot the device-OEM's firmware can read the IDevID certificate that has been placed into the secure elements, and can ask the secure element to perform signing operations using the private key contained in the secure element.
-But, the private key can not be extracted.
+The device manufacturer receives the secure element devices in batches in a similar way that they receive other parts.
+The secure elements are placed by the device manufacturer's plant into the devices.
+
+Upon first boot the device manufacturer firmware can read the IDevID certificate that has been placed into the secure elements, and can ask the secure element to perform signing operations using the private key contained in the secure element.
+But, the private key can not be extracted!
 
 Despite the increased convenience of this method, there may be a risk if the secure elements are stolen in transport.
-A thief could use them to generate signatures that would appear to be from device-OEM's devices.
-To deal with this, there is often a simple activation password that the device-OEM's firmware must provide to the secure element in order to activate it.
-This password is probably stored in the clear in the device-OEM's firmware: it can't be encrypted, because the source of decryption keys would be in the secure element.
+A thief could use them to generate signatures that would appear to be from device manufacurer devices.
+To deal with this, there is often a simple activation password that the device manufacturer firmware must provide to the secure element in order to activate it.
+Not that this password is probably stored in the clear in the device manufacturer's firmware: it can't be encrypted, because the secure source of decryption keys would be in the secure element, creating a cyclic dependancy.
+
+Note that the Secure Element silicon vendor has to create an inventory specific for each client.
 
 # Public Key Infrastructures (PKI)
 
