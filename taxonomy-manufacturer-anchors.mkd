@@ -567,6 +567,7 @@ The names of the five methods below are intended to be mnemonic.
 In this method, the device generates a private key on the device.
 This is done within some very secure aspect of the device, such as in a Trusted Execution Environment, and the resulting private key is then stored in a secure and permanent way.
 The permanency may extend beyond use of on-CPU flash, and could even involve blowing of one-time fuses.
+The key may be derived from a long-term secret, including secrets based on a Physically Uncloneable Function {{PUF}}.
 
 Generating the key on-device has the advantage that the private key never leaves the device.
 The disadvantage is that the device may not have a verifiable random number generator.
@@ -648,9 +649,9 @@ In this process, the silicon chip supplier provisions a unique secret into each 
 This is typically at least 256-bits in size, but often is larger.
 
 This can be via fuses blown in a CPU's Trusted Execution Environment {{?RFC9397}}, a TPM, or a Secure Element that is provisioned at its fabrication time.
-In some cases, the secret is based upon a Physically Uncloneable Function {{PUF}}.
+Like in {{avocado}}, the secret may also be based upon a Physically Uncloneable Function {{PUF}}.
 
-This value is revealed to the board/system manufacturer only via a secure channel.
+This seed value is revealed to the board/system manufacturer only via a secure channel.
 Upon first boot, the system (within a TEE, a TPM, or Secure Element) will generate a key pair using this seed to initialize a Pseudo-Random-Number-Generator (PRNG).
 The manufacturer, in a separate system, will initialize the same PRNG and, thus generate the same key pair.
 The manufacturer then derives the public key part, and signs it with their certification authority (CA), which inserts this public key into a certificate.
