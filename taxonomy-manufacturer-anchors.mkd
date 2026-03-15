@@ -562,7 +562,7 @@ The names of the five methods below are intended to be mnemonic.
 
 * The two methods involving Secure Elements are named with the letter S.
 
-### Avocado method: On-device private key generation {#avcado}
+### Avocado method: On-device private key generation {#avocado}
 
 In this method, the device generates a private key on the device.
 This is done within some very secure aspect of the device, such as in a Trusted Execution Environment, and the resulting private key is then stored in a secure and permanent way.
