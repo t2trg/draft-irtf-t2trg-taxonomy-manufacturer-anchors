@@ -159,13 +159,6 @@ informative:
       org: "Trusted Computing Group"
     date: 2024-12-04
 
-  PUF:
-    target: "https://en.wikipedia.org/wiki/Physical_unclonable_function"
-    title: "Physically Uncloneable Function"
-    author:
-      org: "Wikipedia"
-    date: 2023-07-23
-
   curl:
     target: "https://curl.se/download.html"
     title: "CURL"
