@@ -18,11 +18,11 @@ author:
 normative:
   RFC5280:
   ieee802-1AR:
-    target: "http://standards.ieee.org/findstds/standard/802.1AR-2009.html"
+    target: "https://standards.ieee.org/ieee/802.1AR/6995/"
     title: "IEEE 802.1AR Secure Device Identifier"
     author:
       org: "IEEE Standard"
-    date: 2009
+    date: 2018
 
 informative:
   RFC8995: BRSKI
