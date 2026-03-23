@@ -186,6 +186,13 @@ informative:
       org: International Organization for Standardization
     date: 2022
 
+  hyundaiexample:
+    title: "Software developer cracks Hyundai car security with Google search"
+    target: "https://www.theregister.com/2022/08/17/software_developer_cracks_hyundai_encryption/"
+    author:
+      org: "The Register"
+    date: 2022-08-17
+
 venue:
   group: t2trg
   mail: t2trg@irtf.org
@@ -293,7 +300,7 @@ mechanically-installed:
 : when a key or certificate is programmed into non-volatile storage by
   an out-of-band mechanism such as JTAG {{JTAG}}
 
-mechanically-transferred:
+network-transferred:
 : when a key or certificate is transferred into a system via private interface, such as serial console, JTAG managed mailbox, or other physically private interface
 
 network-transferred:
@@ -338,7 +345,7 @@ This is often done as a "bed-of-nails" test {{BedOfNails}}, where the board has 
 A {{JTAG}} process tests the System Under Test, and then initializes some firmware into the still empty flash storage.
 
 It is now common for a factory test image to be loaded first: this image will include code to initialize the private memory key described above, and will include a first-stage bootloader and some kind of (primitive) Trusted Application Manager (TAM).
-(The TAM is a piece of software that lives within the trusted execution environment.)
+The TAM is a piece of software that lives within the trusted execution environment.
 
 Embedded in the first-stage bootloader will be a Trust Anchor that is able to verify the second-stage bootloader image.
 
@@ -374,7 +381,7 @@ If storage is at a premium (such as inside-CPU non-volatile storage) then only t
 For a 256-bit ECDSA key, this is 32 bytes of space.
 
 The following subsections explain a number of different kinds of trust anchors that a manufacturer can include into a device.
-Each kind of trust anchor has different kinds of trust associated with it based what authorization is associated with the key.
+Each kind of trust anchor has different kinds of trust associated with it based on what authorization is associated with the key.
 That is, these different anchors do different things, and so the risk associated with the anchor depends upon what those things that can be done are.
 
 There are some characteristics associated with each trust anchor that depend upon the associated risk.
@@ -385,7 +392,7 @@ There are some characteristics associated with each trust anchor that depend upo
 
 3. There is a risk that a trust anchor could be removed from the device, or rendered unusable. For instance, it might be impractical to replace a trust anchor, but it might be possible via fault injection or high-energy radiation for an attacker to corrupt one or two bytes of a trust anchor, rendering the anchor useless.
 
-4. There is a risk associated with compromise of the associate private key that goes with the (public key) of the trust anchor.  While this is the most obvious concern expressed: that an attacker gets control of the key, the above three risks may be more practical for some attackers.
+4. There is a risk associated with compromise of the associated private key that goes with the (public key) of the trust anchor.  While this is the most obvious concern expressed: that an attacker gets control of the key, the above three risks may be more practical for some attackers.
 
 5. There is a risk that the manufacturer will lose access to the private key, without the private key being compromised.  No attacker possesses the private key, but neither can the manufacturer use the key anymore.
 
@@ -394,7 +401,7 @@ For some trust anchors, they may be safely replaced with an over-the-air update.
 For the trust anchor that authorizes over-the-air updates, the manufacturer might be in a position where every single device has to be recalled and serviced with specialized hardware capable of updating the firmware.
 For some devices, the hardware will have to be entirely replaced, typically at great cost.
 
-This has already happened, see for example: {{leakedmsikey}}
+This has already happened, see for example: {{leakedmsikey}} and {{hundaiexample}}.
 
 ## First-Stage Bootloader Trust Anchor
 
@@ -490,7 +497,7 @@ The trust anchors involved are typically local to an enterprise and are used to 
 This typically includes connections to network management systems that may also load or modify other trust anchors in the system.
 {{-masa-considerations}} provides some advice in the BRSKI {{RFC8995}} case for appropriate PKI complexity for such local PKIs.
 
-Note that this trust anchor is that of the network operator, is not related to the trust anchor described in the previous section that is used to validate an ownership transfer.
+Note that this trust anchor is that of the network operator, and it is not related to the trust anchor described in the previous section that is used to validate an ownership transfer.
 
 # Types of Device Identities
 
@@ -568,7 +575,7 @@ The use of a pseudo-random number generator needs to be well seeded as explained
 
 There are a number of options of how to get the public key from the device to the certification authority.
 As it is a public key, privacy is less of a concern, and the focus is on integrity.
-(However disclosing the public key may have impacts on trackability of the device.)
+(However, disclosing the public key may have impacts on trackability of the device.)
 
 So, transmission must be done in an integral manner, and must be securely associated with an assigned serial number.
 The serial number goes into the certificate, and the resulting certificate needs to be loaded into the manufacturer's asset database, and returned to the device to be stored as the IDevID certificate.
@@ -590,17 +597,17 @@ Devices are typically constructed in a fashion such that the device is unable to
 This is usually done using a secure-enclave provided by the CPU architecture in combination with on-chip non-volatile memory.
 
 The risk is that if an attacker with physical access is able to put the device back into an unconfigured mode, then the attacker may be able to substitute a new certificate into the device.
-It is difficult to construct a rationale for doing this as the attacker would not be able to forge a certificate from the manufacturers' CA.
+It is difficult to construct a rationale for doing this as the attacker would not be able to forge a certificate from the manufacturer's CA.
 Other parties that rely on the IDevID would see the device as an imposter if another CA was used.
 However, if the goal is theft of the device itself (without regard to having access to firmware updates), then use of another manufacturer identity may be profitable.
-Stealing a very low value item, such as a light bulb makes very little sense.
-Stealing medium value items, such as appliances, or high-value items such as cars, yachts or even airplanes would make sense.
+Stealing a very low value item, such as a light bulb, makes very little sense.
+Stealing medium value items, such as appliances, or high-value items such as cars, yachts or even airplanes, would make sense.
 Replacing the manufacturer IDevID permits the attacker to also replace the authority to transfer ownership in protocols like {{-BRSKI}}.
 
 ### Broccoli method: Off-device private key generation {#broccoli}
 
 In this method, a key pair is generated in the factory, outside of the device.
-The factory keeps the private key in a restricted area, but uses it to form a Certification Signing Request (CSR).
+The factory keeps the private key in a restricted area, but uses it to form a Certificate Signing Request (CSR).
 The CSR is passed to the manufacturer's Certification Authority (CA), and a certificate is returned.
 Other meta-data is often also returned, such as a serial number.
 
@@ -638,7 +645,8 @@ In this section there are two suppliers involved: the first is the familiar one 
 This silicon chip is where a symmetric seed key has been provisioned.
 
 In this process, the silicon chip supplier provisions a unique secret into each device shipped.
-This is typically at least 256-bits in size, but often is larger.
+This is typically at least 256 bits in size, but often is larger.
+Note that the silicon chip supplier has to create an inventory specific for each client.
 
 This can be via fuses blown in a CPU's Trusted Execution Environment {{?RFC9397}}, a TPM, or a Secure Element that is provisioned at its fabrication time.
 
@@ -646,7 +654,7 @@ This seed value is revealed to the board/system manufacturer only via a secure c
 Upon first boot, the system (within a TEE, a TPM, or Secure Element) will generate a key pair using this seed to initialize a Pseudo-Random-Number-Generator (PRNG).
 The manufacturer, in a separate system, will initialize the same PRNG and, thus generate the same key pair.
 The manufacturer then derives the public key part, and signs it with their certification authority (CA), which inserts this public key into a certificate.
-The private part then is destroyed by the manufacturer, ideally never stored or seen by anyone.
+The private part is then destroyed by the manufacturer, ideally never stored or seen by anyone.
 This same mechanism is used by the TCG for manufacturer provisioning of EK certificates in TPMs, as explained by Section 2.1.1 of {{TPMEK}}.
 
 The certificate (being public information) is placed into a database, in some cases it is loaded by the device as its IDevID certificate, in other cases, it is retrieved during the onboarding process based upon a unique serial number asserted by the device.
@@ -687,7 +695,7 @@ As a result the choice of which certification authority (CA) gets used may be ve
 It is typical for the silicon chip supplier to operate a CA themselves.
 There are a few options:
 
-1. they may put IDevIDs into the device which are generic to the silicon chip suppliere
+1. they may put IDevIDs into the device which are generic to the silicon chip supplier
 2. they may operate a CA on behalf of the device manufacturer,
 3. they may even connect over a network to the device manufacturer's CA.
 
@@ -695,12 +703,12 @@ The device manufacturer receives the secure element devices in batches in a simi
 The secure elements are placed by the device manufacturer's plant into the devices.
 
 Upon first boot the device manufacturer firmware can read the IDevID certificate that has been placed into the secure elements, and can ask the secure element to perform signing operations using the private key contained in the secure element.
-But, the private key can not be extracted!
+However, the private key can not be extracted!
 
 Despite the increased convenience of this method, there may be a risk if the secure elements are stolen in transport.
 A thief could use them to generate signatures that would appear to be from device manufacurer devices.
 To deal with this, there is often a simple activation password that the device manufacturer firmware must provide to the secure element in order to activate it.
-Not that this password is probably stored in the clear in the device manufacturer's firmware: it can't be encrypted, because the secure source of decryption keys would be in the secure element, creating a cyclic dependancy.
+Note that this password is probably stored in the clear in the device manufacturer's firmware: it can't be encrypted, because the secure source of decryption keys would be in the secure element, creating a cyclic dependancy.
 
 Note that the Secure Element silicon vendor has to create an inventory specific for each client.
 
@@ -709,7 +717,7 @@ Note that the Secure Element silicon vendor has to create an inventory specific 
 This section covers the attributes of the Public Key Infrastructure that a manufacturer must operate in order to provision IDevID certificates to devices.
 
 {{RFC5280}} describes the format for PKIX certificates.
-Numerous mechanisms for doing enrollment have been defined (including: EST {{RFC7030}}, CMP {{RFC4210}}, SCEP {{-SCEP}}).
+Numerous mechanisms of enrollment have been defined (including: EST {{RFC7030}}, CMP {{RFC4210}}, SCEP {{-SCEP}}).
 
 {{RFC5280}} provides mechanisms to deal with multi-level certification
 authorities, but it is not always clear what operating rules apply.
@@ -726,12 +734,13 @@ A PKI which discloses one or more private certification authority keys is no
 longer secure.
 
 An attacker can create new identities, and forge certificates connecting
-existing identities to attacker controlled public/private key pair.
+existing identities to attacker controlled public/private key pairs.
 This can permit the attacker to impersonate any specific device.
 
-In case 3, a failure occurs if the CA is convinced to sign (or issue) a certificate which it is not authorized to do so.
+In case 3, a failure occurs if the CA is convinced to sign (or issue) a certificate which it is not authorized to sign.
 See for instance {{ComodoGate}}.
 This is an authorization failure, and while a significant event, it does not result in the CA having to be re-initialized from scratch as no private keys were disclosed.
+In ecosystems where CRLs or OCSP is used, then the unauthorized certificate can be revoked.
 
 This is distinguished from when access to the private key is lost, but the key has not been disclosed.
 Any signatures that have already been made continue to be trustworthy, however, no new signature can be made.
@@ -796,7 +805,7 @@ process.
 
 For examples of extreme measures, see {{kskceremony}}.
 There is however a wide spectrum of needs, as exampled in {{rootkeyceremony}}.
-The SAS70 audit standard is usually used as a basis for the Ceremony, see {{keyceremony2}}.
+The SAS70 audit standard is usually used as a basis for the ceremony, see {{keyceremony2}}.
 
 This is inconvenient, and may involve latencies of days, possibly even weeks
 to months if the offline device is kept in a locked environment that requires
