@@ -67,10 +67,10 @@ informative:
 
   kskceremony:
     title: "DNSSEC Practice Statement for the Root Zone ZSK Operator"
-    target: "https://www.iana.org/dnssec/dps/zsk-operator/dps-zsk-operator-v2.0.pdf"
+    target: "https://www.iana.org/dnssec/procedures"
     author:
       org: "Verisign"
-    date: 2017
+    date: 2024-07-18
 
   rootkeyceremony:
      title: "Root Key Ceremony, Cryptography Wiki"
@@ -401,7 +401,7 @@ For some trust anchors, they may be safely replaced with an over-the-air update.
 For the trust anchor that authorizes over-the-air updates, the manufacturer might be in a position where every single device has to be recalled and serviced with specialized hardware capable of updating the firmware.
 For some devices, the hardware will have to be entirely replaced, typically at great cost.
 
-This has already happened, see for example: {{leakedmsikey}} and {{hundaiexample}}.
+This has already happened, see for example: {{leakedmsikey}} and {{hyundaiexample}}.
 
 ## First-Stage Bootloader Trust Anchor
 
@@ -815,7 +815,7 @@ There is therefore a tension between protection and availability.
 Convenient and timely access to sign new artifacts is not something that is just nice to have.
 If access is inconvenient then it may cause delays for signing of new code releases,
 or it may incentivize technical staff to build in workarounds in order that they can get their job done faster.
-The compromise between situations is often mitigated by having some levels of the PKI be offline, and some levels of the PKI be online.
+To address the conflicting needs, some levels of the PKI be offline, and some levels of the PKI be online.
 
 ## Preservation of operationally critical private keys
 
@@ -826,8 +826,9 @@ Trust anchors must not be easily replaced by attackers, and securing the trust a
 Replacement of the anchor can involve a physical recall of every single device.
 It is therefore important that the trust anchor is usable for the entire lifetime of every single one of the devices.
 
-The previous section deals with attacks against the infrastructure: the attacker wants to get access to the private key material, or to convince the infrastructure to use the private key material to their bidding.
-Such an event, if it was undetected would be catastrophic.
+The protections discussed in the previous section aim to thwart attacks.
+The attacker wants to get access to the private key material, or to convince the infrastructure to use the private key material to their bidding.
+Such an event, if it was undetected, would be catastrophic.
 It would render almost every device useless (or potentially dangerous) until the anchor could be replaced.
 
 There is a different situation, however, which would lead to a similar result.
@@ -841,12 +842,12 @@ This loss is not hassle-free; access to the code signing key can be critical pat
 
 There are many situations that could lead to this.
 The most typical situation would seem to be some kind of physical damage: a flood, a fire.
-Less obvious situations could occur if a human forgets a password, or if the human with the password(s) dies, or becomes incapacitated.
+Less obvious situations could occur if CA key staff lose access to authentication secrets, such as a password, or if the human with the password(s) dies, or becomes incapacitated.
 
 Backups of critical material are routinely done.
-Storage of backups offsite deals with physical damage, and in many cases the organization maintains an entire set of equipment at another location.
+Storage of backups offsite addresses the risk of physical damage, and in many cases the organization maintains an entire set of equipment at another location.
 
-The question then becomes: how are the backups unlocked, or activated.
+The question then becomes how the backups are unlocked or activated.
 Why attack the primary site physically if an attacker can target the backup site, or the people whose job it is to activate the backup site?
 
 Consider the situation where a hurricane or earthquake takes out all power and communications at an organizations' primary location, and it becomes necessary to activate the backup site.
