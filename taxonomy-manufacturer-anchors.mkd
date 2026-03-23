@@ -866,7 +866,7 @@ In other systems the digital pieces are carried on the person themselves, ideall
 {{shamir79}} allows for keys to be split up into many components (n of them), where only some smaller number of them, k, need to be present to reconstruct the secret.
 This is known as a (k, n) threshold scheme.
 
-### Secret splitting, k-of-n {#splittingnumbers}
+### Secret sharing, k-of-n {#splittingnumbers}
 
 In this document, each of the people who hold a piece of the secret are referred to as Key Executives.
 
@@ -877,20 +877,26 @@ The identities of the n Key Executives should also be confidential.
 The list of who they are should probably be limited to the members of the board and executive.
 There does not seem to be any particular reason for the Key Executives to be members of the board, but having a long term relationship with the enterprise seems reasonable, and a clear understanding of when to use the piece.
 
-The number k, which is the minimum number of people that would need to be coerced should also remain confidential.
+The use of secret sharing, as opposed to providing each Key Executive a complete backup copy (k=1), is that it means that no individual  Key Executive can perform operations on their own.
+Instead, of a minimum of k Key Executives is needed to do any operation.
+This protects the organization against corruption and coercion of any one Key Executive.
+As the Key Executives can not operate on their own, there is also a lower risk to them.
+
+The minimum number of people (k) needed should also remain confidential.
 
 A number that can be published is the difference between k and n, which represents the number of redundant Key Executives that exist.
+The publication of this number is an assurance to the organizations' customers that there is a business continuity plan.
 
 An enterprise that has operations in multiple places may be better positioned to survive incidents that disrupt travel.
-For instance, an earthquake, tsunami, or pandemic not only has the possibility to kill Key Executives but it could also damage smartcards or USB key that they are stored on.
-{{shamir79}} suggests that n=2k-1, which implies that a simple majority of Key Executives are needed to reconstruct the secret.
+For instance, an earthquake, tsunami, or pandemic not only has the possibility to incapacitate Key Executives but it could also damage smartcards or USB key that the shares are stored on.
+{{shamir79}} suggests that `n=2k-1`, which implies that a simple majority of Key Executives are needed to reconstruct the secret.
 
-However there are other values of k with some different tradeoffs: requiring a majority of Key Executives might be difficult when travel is impossible.
+However, there are other values of k with some different tradeoffs: requiring a majority of Key Executives might be difficult when travel is impossible.
 For instance, a value of k set to be less than a simple majority.
 This enables the situation where Key Executives are split between two or more continents (with each continent having at least k Key Executives) would allow either continent to continue operations without the other group.
 
-This might be a very good way to manage a code signing or firmware update signing key.
-Split it among development groups in three time zones (eight hours apart), such that any of those development groups can issue an emergency security patch.
+Secret sharing may also be a good way to manage a code signing or firmware update signing key, even when that is an End-Entity Certificate.
+Split it among development groups in three time zones (eight hours apart), such that any of those development groups have enough shares, and can therefore issue an emergency security patch.
 Another way would be to have three End-Entity certificates that can sign code, and have each time zone sign their own code.  That implies that there is at least a level two PKI around the code signing process, and that any bootloaders that need to verify the code being starting it are able to do PKI path operations.
 
 
