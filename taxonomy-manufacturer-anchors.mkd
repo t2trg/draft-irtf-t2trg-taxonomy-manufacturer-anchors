@@ -43,7 +43,8 @@ informative:
   RFC7030:
   RFC8894: SCEP
   RFC4210: CMP
-  3GPP.51.011:
+  _3GPP.51.011:
+    =: 3GPP.51.011
   RFC6024:
 
   CABForum90day:
@@ -234,7 +235,7 @@ The 3GPP Vendor Base Station Certificate {{_3GPP.33.310}} is another form that u
 The identity has two components: a private key that must remain under the strict control of a trusted part of the device, and a public part (the certificate), which (ignoring, for the moment, personal privacy concerns) may be freely disclosed.
 
 There also situations where identities are tied up in the provision of symmetric shared secrets.
-A common example is the SIM card {{3GPP.51.011}}.
+A common example is the SIM card {{_3GPP.51.011}}.
 Provisioning of a physical SIM card is generally considered a one-touch operation.
 A virtual SIM (an eSIM) could be factory provisioned.
 
