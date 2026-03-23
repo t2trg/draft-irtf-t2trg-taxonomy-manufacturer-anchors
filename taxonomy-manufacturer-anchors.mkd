@@ -193,6 +193,12 @@ informative:
       org: "The Register"
     date: 2022-08-17
 
+  _3GPP.33.310:
+    =: 3GPP.33.310
+    display: 3GPP.33.310
+
+
+
 venue:
   group: t2trg
   mail: t2trg@irtf.org
@@ -224,6 +230,7 @@ This document deals with how the PKI associated with such a trust anchor is mana
 
 Many protocols also leverage manufacturer installed identities.
 These identities are usually in the form of {{ieee802-1AR}} Initial Device Identity certificates (IDevID).
+The 3GPP Vendor Base Station Certificate {{_3GPP.33.310}} is another form that uses a similiar design pattern.
 The identity has two components: a private key that must remain under the strict control of a trusted part of the device, and a public part (the certificate), which (ignoring, for the moment, personal privacy concerns) may be freely disclosed.
 
 There also situations where identities are tied up in the provision of symmetric shared secrets.
