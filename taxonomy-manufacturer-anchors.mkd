@@ -795,7 +795,7 @@ certificates are, counting from one.
 It is quite common to have a three-level PKI, where the root (level one) of the CA is
 stored in a Hardware Security Module (HSM) in a way that it cannot be continuously accessed ("offline"), while the level two subordinate CA can sign certificates at any time ("online").
 
-## Protection of CA private keys
+## Protection of CA private keys {#protectCA}
 
 The private key for the certification authorities must be protected from
 disclosure.
@@ -973,7 +973,7 @@ identity-anchor-storage:
 : how is the root CA key stored? An open description that might include whether an HSM is used, or not, or even the model of it.
 
 identity-shared-split-extra:
-: referring to {{splittingnumbers}}, where a private key is split up into n-components, of which k are required to recover the key, this number is equal to n-k.
+: referring to {{splittingnumbers}}, where a private key is split up into n components, of which k are required to recover the key, this number is equal to n-k.
 This is the number of spare shares.
 Publishing this provides a measure of how much redundancy is present while not actually revealing either k or n.
 
@@ -1023,7 +1023,7 @@ This document makes no IANA requests.
 # Acknowledgements
 
 Robert Martin of MITRE provided some guidance about citing the SBOM efforts.
-Carsten Bormann provides many editorial suggestions.
+Carsten Bormann and Sini Ruohomaa provided many editorial suggestions.
 
 # Changelog
 
