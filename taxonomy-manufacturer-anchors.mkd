@@ -817,7 +817,7 @@ If access is inconvenient then it may cause delays for signing of new code relea
 or it may incentivize technical staff to build in workarounds in order that they can get their job done faster.
 The compromise between situations is often mitigated by having some levels of the PKI be offline, and some levels of the PKI be online.
 
-## Preservation of CA and Trust Anchor private keys
+## Preservation of operationally critical private keys
 
 A public key (or certificate) is installed into target device(s) as a trust anchor.
 It is there in order to verify further artifacts, and it represents a significant investment.
@@ -832,6 +832,12 @@ It would render almost every device useless (or potentially dangerous) until the
 
 There is a different situation, however, which would lead to a similar result.
 If the legitimate owner of the trust anchor infrastructure loses access to the private keys, then an equally catastrophic situation occurs.
+
+Code signing is usually done with a keypair that is attached to an End-Entity (EE) Certificate, from a trust anchor that has been assigned code signing authorization.
+The private key of this EE also needs to be treated with significant care.
+However, as long as the code signing CA's trust anchor and private key are preserved, it is usually preferable to lose access to the code signing EE certificate private key rather than risk disclosure.
+A new code signing EE certificate can be created if needed.
+This loss is not hassle-free; access to the code signing key can be critical path to getting fixes deployed.
 
 There are many situations that could lead to this.
 The most typical situation would seem to be some kind of physical damage: a flood, a fire.
@@ -882,9 +888,9 @@ However there are other values of k with some different tradeoffs: requiring a m
 For instance, a value of k set to be less than a simple majority.
 This enables the situation where Key Executives are split between two or more continents (with each continent having at least k Key Executives) would allow either continent to continue operations without the other group.
 
-This might be a very good way to manage a code signing or update signing key.
+This might be a very good way to manage a code signing or firmware update signing key.
 Split it among development groups in three time zones (eight hours apart), such that any of those development groups can issue an emergency security patch.
-Another way would be to have three End-Entity certificates that can sign code, and have each time zone sign their own code.  That implies that there is at least a level two PKI around the code signing process, and that any bootloaders that need to verify the code being starting it are able to do PKI operations.
+Another way would be to have three End-Entity certificates that can sign code, and have each time zone sign their own code.  That implies that there is at least a level two PKI around the code signing process, and that any bootloaders that need to verify the code being starting it are able to do PKI path operations.
 
 
 ## Supporting provisioned anchors in devices
