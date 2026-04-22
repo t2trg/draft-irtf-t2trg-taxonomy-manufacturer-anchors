@@ -489,7 +489,7 @@ mechanism.
 
 Generating the key on-device has the advantage that the private key never leaves the device.
 The disadvantage is that the device may not have a verified random number generator.
-{{factoringrsa}} is an example of a successful attack on this scenario.
+{{factoringrsa}} is an example of a random number generation failure that was visible through survey of public keys, and led to a successful attack on the private keys.
 
 There are a number of options of how to get the public key securely from the
 device to the certification authority.
