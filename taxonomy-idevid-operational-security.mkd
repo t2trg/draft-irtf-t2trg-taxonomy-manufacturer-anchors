@@ -253,7 +253,7 @@ infrastructure-generated:
 located at the factory that built the device
 
 mechanically-installed:
-: when a key or certificate is programmed into non-volatile storage by
+: when a key or certificate is programmed directly into non-volatile storage by
   an out-of-band mechanism such as JTAG {{JTAG}}
 
 mechanically-transferred:
