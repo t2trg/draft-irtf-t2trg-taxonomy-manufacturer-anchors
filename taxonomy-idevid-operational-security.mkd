@@ -498,13 +498,20 @@ This transmission must be done in an integral manner, and must be securely assoc
 The serial number goes into the certificate, and the resulting certificate needs to be loaded into the manufacturer's asset database.
 
 One way to do the transmission is during a factory Bed of Nails test (see {{BedOfNails}}) or Boundary Scan.
-When done via a physical connection like this, then this is referred to as a
-_device-generated_ / _mechanically-transferred_ method.
+There are two ways this can be done.  In the _device-generated_ / _mechanically-installed_ method, the public key or certificate signing request (CSR) is retrieved by doing a JTAG operations directly with an eeprom or RAM.
+The CPU is not involved, and the memory accessed is likely not encrypted.
+(The private key might be in the same place, or it could be safely elsewhere).
+
+A different JTAG mechanism would involve reading/writing to some other area of the CPU, such as an on-CPU static RAM or debug area.  In this case, the CPU is involved.
+When done via this a physical connection like this, then this is referred to as a _device-generated_ / _mechanically-tranferred_ method.
+The key difference is that CPUs usually have much better defenses against JTAG use after manufacturing, often via one time fuses that can blown.
 
 There are other ways that could be used where a certificate signing request is sent over a special network channel when the device is powered up in the factory.
 This is referred to as the _device-generated_ / _network-transferred_  method.
 
 Regardless of how the certificate signing request is sent from the device to the factory, and how the certificate is returned to the device, a concern from production line managers is that the assembly line may have to wait for the certification authority to respond with the certificate.
+
+The differences between these sub-methods is relevant only to external auditors who need to estimate risk of attacks in the factory, or afterwards.
 
 After the key generation, the device needs to set a flag such that it no longer will generate a new key / will accept a new IDevID via the factory connection.
 This may be a software setting, or could be as dramatic as blowing a fuse.
