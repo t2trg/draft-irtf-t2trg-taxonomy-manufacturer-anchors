@@ -231,7 +231,7 @@ This document deals with how the PKI associated with such a trust anchor is mana
 
 Many protocols also leverage manufacturer installed identities.
 These identities are usually in the form of {{ieee802-1AR}} Initial Device Identity certificates (IDevID).
-The 3GPP Vendor Base Station Certificate {{_3GPP.33.310}} is another form that uses a similiar design pattern.
+The 3GPP Vendor Base Station Certificate {{_3GPP.33.310}} is another form that uses a similar design pattern.
 The identity has two components: a private key that must remain under the strict control of a trusted part of the device, and a public part (the certificate), which (ignoring, for the moment, personal privacy concerns) may be freely disclosed.
 
 There also situations where identities are tied up in the provision of symmetric shared secrets.
@@ -269,8 +269,8 @@ A device may mislead audit systems as to its provenance, about its software load
 In order to properly assess the security of a Supply Chain it is necessary to understand the kinds and severity of the threats which a device has been designed to resist.
 To do this, it is necessary to understand the ways in which the different trust anchors and identities are initially provisioned, are protected, and are updated.
 
-To do this, this document details the different trust anchors (TrAnc) and identities (IDs) found in typical devices.
-The privacy and integrity of the TrAncs and IDs is often provided by a different, superior artifact.
+To do this, this document details the different trust anchors and identities (IDs) found in typical devices.
+The privacy and integrity of the trust anchors and IDs is often provided by a different, superior artifact.
 This relationship is examined.
 
 While many might desire to assign numerical values to different mitigation techniques in order to be able to rank them, this document does not attempt to do that, as there are too many other (mostly human) factors that would come into play.
@@ -320,7 +320,7 @@ device/infrastructure-co-generated:
 TPM:
 : a Trusted Platform Module, such as the set of devices standardized by the Trusted Computing Group (TCG). See {{TPM20spec}}.
 
-In addition, {{keygen}} introduces three primary private key generation techniques named *arbitrarily* after three vegetables (avocado, brocolli, and carrot) and two secondary ones named after two fruits (salak and sapodilla).
+In addition, {{keygen}} introduces three primary private key generation techniques named *arbitrarily* after three vegetables (avocado, broccoli, and carrot) and two secondary ones named after two more (squash and spinach).
 The two secondary ones refer to methods where a secure element is involved, and mnemonically start with the same letter: S.
 
 # Applicability Model
@@ -337,7 +337,7 @@ As the BMC usually has complete access to the main CPU's memory, I/O hardware an
 
 ## A reference manufacturing/boot process
 
-In order to provide for immutability and privacy of the critical TrAnc and IDs, many CPU manufacturers will provide for some kind of private memory area which is only accessible when the CPU is in certain privileged states.
+In order to provide for immutability and privacy of the critical trust anchors and IDs, many CPU manufacturers will provide for some kind of private memory area which is only accessible when the CPU is in certain privileged states.
 See the Terminology and Architecture sections of {{RFC9397}}, notably Trusted Execution Environment (TEE), Rich Execution Environment (REE), and Trusted Application Manager (TAM).
 
 The private memory that is important is usually non-volatile and rather small.
@@ -424,7 +424,8 @@ The anchor could be rendered unusable if additional fuses can be blown.
 Some fuse implementations allow for bits to be changed from 1 (unblown), to 0 (blown).
 Access to blow the fuses is usually restricted.
 On some devices, it requires voltages not normally present, making this impossible to do by software.
-However, it might be possible for an attacker to blow fuses using an external high voltage probe or via injection of gamma ray.   The likely result however is that the device would no longer boot.
+However, it might be possible for an attacker to blow fuses using an external high voltage probe or via injection of gamma ray.
+The likely result however is that the device would no longer boot.
 
 ## Software Update Trust Anchor
 
@@ -454,7 +455,7 @@ This privilege may include updating anchors that are present within the TAM, or 
 
 ## Public WebPKI Anchors
 
-These anchors are used to authenticate HTTPS certificates from web sites.
+These anchors are used to authenticate HTTPS certificates from websites.
 These anchors are typically distributed as part of desktop browsers, and via desktop operating systems.
 On IoT devices with specific purposes {{?RFC8520}}, a limited number of connections is expected, so a limited number of trust anchors is usually distributed.
 
@@ -589,12 +590,12 @@ So, transmission must be done in an integral manner, and must be securely associ
 The serial number goes into the certificate, and the resulting certificate needs to be loaded into the manufacturer's asset database, and returned to the device to be stored as the IDevID certificate.
 
 One way to do the transmission is during a factory Bed of Nails test (see {{BedOfNails}}) or JTAG Boundary Scan.
-There are two ways this can be done.  In the _device-generated_ / _mechanically-installed_ method, the public key or certificate signing request (CSR) is retrieved by doing a JTAG operations directly with an eeprom or RAM.
+There are two ways this can be done.  In the _device-generated_ / _mechanically-installed_ method, the public key or certificate signing request (CSR) is retrieved by doing JTAG operations directly with an EEPROM or RAM.
 The CPU is not involved, and the memory accessed is likely not encrypted.
 (The private key might be in the same place, or it could be safely elsewhere).
 
 A different JTAG mechanism would involve reading/writing to some other area of the CPU, such as an on-CPU static RAM or debug area.  In this case, the CPU is involved.
-When done via this a physical connection like this, then this is referred to as a _device-generated_ / _mechanically-tranferred_ method.
+When done via a physical connection like this, then this is referred to as a _device-generated_ / _mechanically-transferred_ method.
 The key difference is that CPUs usually have much better defenses against JTAG use after manufacturing, often via one time fuses that can blown.
 
 There are other ways that could be used where a certificate signing request is sent over a special network channel when the device is powered up in the factory.
@@ -640,9 +641,9 @@ The use of this method increases the value of attacking the manufacturing infras
 If private keys are generated by the manufacturing plant, and are immediately installed, but never stored, then the window in which an attacker can gain access to the private key is immensely reduced.
 But, the process then becomes more synchronous, negating much of the advantage of such a system.
 
-As in the previous case, the transfer may be done via physical interfaces such as bed-of-nails, giving the _brocolli infrastructure-generated_ / _mechanically-transferred_ method.
+As in the previous case, the transfer may be done via physical interfaces such as bed-of-nails, giving the _broccoli infrastructure-generated_ / _mechanically-transferred_ method.
 
-There is also the possibility of having a _brocolli infrastructure-generated_ / _network-transferred_
+There is also the possibility of having a _broccoli infrastructure-generated_ / _network-transferred_
 key.
 There is a support for "server-generated" keys in {{RFC7030}}, {{-SCEP}}, and {{-CMP}}.
 All methods strongly recommend encrypting the private key for transfer.
@@ -688,7 +689,7 @@ There are, however, additional downsides of this method for manufacturer: the co
 The higher cost is the result of outsourcing the security risk to the silicon manufacturer supplier.
 
 The weakest link in this process is that the resulting seeds must be communicated to the device manufacturer securely, usually in batches.
-This will often by done by physical courier, but other arrangements are possible.
+This will often be done by physical courier, but other arrangements are possible.
 The device manufacturer must store and care for these seeds very carefully, but as soon as a certificate has been generated, the seeds can be destroyed.
 
 ### Squash method: on-device generation with Secure Element {#squash}
@@ -719,9 +720,9 @@ Upon first boot the device manufacturer firmware can read the IDevID certificate
 However, the private key can not be extracted!
 
 Despite the increased convenience of this method, there may be a risk if the secure elements are stolen in transport.
-A thief could use them to generate signatures that would appear to be from device manufacurer devices.
+A thief could use them to generate signatures that would appear to be from device manufacturer devices.
 To deal with this, there is often a simple activation password that the device manufacturer firmware must provide to the secure element in order to activate it.
-Note that this password is probably stored in the clear in the device manufacturer's firmware: it can't be encrypted, because the secure source of decryption keys would be in the secure element, creating a cyclic dependancy.
+Note that this password is probably stored in the clear in the device manufacturer's firmware: it can't be encrypted, because the secure source of decryption keys would be in the secure element, creating a cyclic dependency.
 
 Note that the Secure Element silicon vendor has to create an inventory specific for each client.
 
@@ -758,7 +759,7 @@ In ecosystems where CRLs or OCSP is used, then the unauthorized certificate can 
 This is distinguished from when access to the private key is lost, but the key has not been disclosed.
 Any signatures that have already been made continue to be trustworthy, however, no new signature can be made.
 This renders the CA useless.
-If this the firmware signing key, it likely results in a recall of all products that need to use this trust anchor.
+If this concerns the firmware signing key, it likely results in a recall of all products that need to use this trust anchor.
 (Note: that there are some situations where a trust anchor will be created, it will then be used to sign a number of subordinate CAs, enough for the anticipated lifespan of the anchor, and then the private key intentionally destroyed.)
 
 If the PKI uses Certificate Revocation Lists (CRL), then an attacker that has access to the private key can also revoke existing identities.
@@ -779,7 +780,7 @@ In the formula, the certificates are arranged into a list.
 The certification authority (CA) starts with a Trust Anchor.
 This is counted as the first level of the authority.
 
-In the degenerate case of a self-signed certificate, this a one level PKI.
+In the degenerate case of a self-signed certificate, this constitutes a one level PKI.
 
 ~~~~ aasvg
 {::include self-signed.txt}
@@ -890,8 +891,8 @@ The identities of the n Key-Executives should also be confidential.
 The list of who they are should probably be limited to the members of the board and executive.
 There does not seem to be any particular reason for the Key-Executives to be members of the board, but having a long term relationship with the enterprise seems reasonable, and a clear understanding of when to use the piece.
 
-The use of secret sharing, as opposed to providing each Key-Executive a complete backup copy (k=1), is that it means that no individual  Key-Executive can perform operations on their own.
-Instead, of a minimum of k Key-Executives is needed to do any operation.
+The use of secret sharing, as opposed to providing each Key-Executive a complete backup copy (k=1), is that it means that no individual Key-Executive can perform operations on their own.
+Instead, a minimum of k Key-Executives is needed to do any operation.
 This protects the organization against corruption and coercion of any one Key-Executive.
 As the Key-Executives can not operate on their own, there is also a lower risk to them.
 
@@ -956,7 +957,7 @@ initial-enclave-confidentiality-key:
 first-stage-exposure:
 : The number of people involved in the first stage initialization.
 An entirely automated system would have a number zero.
-A factory with three 8 hour shifts might have a number that is a multiple of three.
+A factory with three 8-hour shifts might have a number that is a multiple of three.
 A system with humans involved may be subject to bribery attacks, while a system with no humans may be subject to attacks on the system which are hard to notice.
 
 first-second-stage-gap:
