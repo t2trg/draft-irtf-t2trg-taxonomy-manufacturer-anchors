@@ -277,7 +277,7 @@ This relationship is examined.
 While many might desire to assign numerical values to different mitigation techniques in order to be able to rank them, this document does not attempt to do that, as there are too many other (mostly human) factors that would come into play.
 Such an effort is more properly in the purview of a formal processes such as {{ISO27001}}.
 
-This document is a product of the IRTF Thing-to-Thing Research Group (T2TRG).
+This document is a product of the IRTF Thing-to-Thing Research Group (T2TRG) and represents the consensus of the research group.
 
 ## Terminology
 
