@@ -3,7 +3,7 @@ v: 3
 
 title: A Taxonomy of operational security considerations for manufacturer installed keys and Trust Anchors
 abbrev: manufacturer keys
-docname: draft-irtf-t2trg-taxonomy-manufacturer-anchors-18
+docname: draft-irtf-t2trg-taxonomy-manufacturer-anchors-19
 
 wg: T2TRG Research Group
 kw: Internet-Draft
@@ -81,11 +81,11 @@ informative:
      date: 2020-04-04
 
   keyceremony2:
-     title: "SAS 70 Key Ceremony"
-     target: "http://www.digi-sign.com/compliance/key%20ceremony/index"
+     title: "Key Ceremony"
+     target: "https://en.wikipedia.org/wiki/Key_ceremony"
      author:
-       org: "Digi-Sign"
-     date: 2020-04-04
+       org: "Wikipedia"
+     date: 2026-06-25
 
   shamir79:
     title: "How to share a secret."
@@ -220,6 +220,13 @@ serves to name them in a consistent manner in order to aid in communication.
 This document is a product of the IRTF Thing-to-Thing Research Group (T2TRG).
 
 --- middle
+
+# IRTF boilerplate
+
+This document is a product of the Internet Research
+Task Force (IRTF).
+The IRTF publishes the results of Internet-related research and development activities.
+These results might not be suitable for deployment.
 
 # Introduction
 
