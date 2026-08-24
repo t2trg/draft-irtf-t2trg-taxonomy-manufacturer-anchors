@@ -265,7 +265,7 @@ Device identity keys are used when performing enrollment requests (in {{-BRSKI}}
 The device identity certificate is also used to sign Evidence by an Attesting Environment (see {{-rats-architecture}}).
 
 These security artifacts are used to anchor other chains of information such as: an
-Entity Attestation Token (EAT) {{?RFC9711}} Claim as to the version of software/firmware running on a device {{?I-D.birkholz-suit-coswid-manifest}}, an EAT claim about legitimate network activity (via {{?I-D.ietf-iotops-mud-rats}}, or embedded in the IDevID in {{?RFC8520}}).
+Entity Attestation Token (EAT) {{?RFC9711}} Claim as to the version of software/firmware running on a device, an EAT claim about legitimate network activity (via {{?I-D.ietf-iotops-mud-rats}}, or embedded in the IDevID in {{?RFC8520}}).
 
 Known software versions lead directly to vendor/distributor signed Software Bill of Materials (SBOM), such as those described by {{-coswid}} and the NTIA/SBOM work {{ntiasbom}} and CISQ/OMG SBOM work underway {{cisqsbom}}.
 
@@ -827,7 +827,6 @@ process.
 
 For examples of extreme measures, see {{kskceremony}}.
 There is however a wide spectrum of needs, as exampled in {{rootkeyceremony}}.
-The SAS70 audit standard is usually used as a basis for the ceremony, see {{keyceremony2}}.
 
 This is inconvenient, and may involve latencies of days, possibly even weeks
 to months if the offline device is kept in a locked environment that requires
